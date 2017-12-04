@@ -41,10 +41,7 @@
 
 (defun total-lines-init ()
   "Reset `total-lines' by scanning to the end of the buffer."
-  (save-restriction
-    (widen)
-    (let ((existing-lines (line-number-at-pos (point-max))))
-      (setq total-lines existing-lines))))
+  (setq total-lines (line-number-at-pos (point-max) t)))
 
 (defun total-lines-before-change-function (beg end)
   "Decrement `total-lines' in response to a text deletion.
