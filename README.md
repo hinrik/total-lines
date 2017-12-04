@@ -70,7 +70,7 @@ See [`COPYING`][copying] for the complete license.
 [COPYING]: https://github.com/hinrik/total-lines/blob/master/COPYING
 [GNU Emacs]: https://www.gnu.org/software/emacs/
 [MELPA]: http://melpa.milkbox.net/
-[melpa-status-img]: http://melpa.org/packages/total-lines.svg
-[melpa-status]: http://melpa.org/#/total-lines
+[melpa-status-img]: https://melpa.org/packages/total-lines-badge.svg
+[melpa-status]: https://melpa.org/#/total-lines
 [use-package]: https://github.com/jwiegley/use-package
 [Issue tracker]: https://github.com/hinrik/total-lines/issues
