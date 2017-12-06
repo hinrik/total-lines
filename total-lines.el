@@ -47,13 +47,13 @@
   "Count the number of newlines between BEG and END.
 
 Kind of like `count-lines' but without the special cases."
-  (let ((change (count-lines beg end)))
-    (when (> change 0)
-      (setq change (1- change)))
+  (let ((count (count-lines beg end)))
+    (when (> count 0)
+      (setq count (1- count)))
     (when (and (not (= beg end))
                (total-lines--at-beginning-of-line end))
-      (setq change (1+ change)))
-    change))
+      (setq count (1+ count)))
+    count))
 
 (defun total-lines--at-beginning-of-line (pos)
   "Return t when the position POS is at beginning of line, nil otherwise."
