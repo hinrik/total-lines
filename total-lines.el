@@ -59,7 +59,7 @@ Kind of like `count-lines' but without the special cases."
   "Return t when the position POS is at beginning of line, nil otherwise."
   (save-excursion
     (goto-char pos)
-    (beginning-of-line)
+    (forward-line 0)
     (= (point) pos)))
 
 (defun total-lines-before-change-function (beg end)
