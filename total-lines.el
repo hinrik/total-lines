@@ -65,13 +65,13 @@ Kind of like `count-lines' but without the special cases."
 (defun total-lines-before-change-function (beg end)
   "Decrement `total-lines' in response to a text deletion.
 
-BEG, END come from `after-change-functions'"
+BEG and END come from `after-change-functions'"
   (setq total-lines (- total-lines (total-lines--count-newlines beg end))))
 
 (defun total-lines-after-change-function (beg end _old-length)
   "Increment `total-lines-count' in response to a text addition.
 
-BEG and END, and OLD-LENGTH come from `before-change-functions'"
+BEG, END, and OLD-LENGTH come from `before-change-functions'"
   (setq total-lines (+ total-lines (total-lines--count-newlines beg end))))
 
 ;;;###autoload
