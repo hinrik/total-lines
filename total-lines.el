@@ -43,8 +43,20 @@
   "Reset `total-lines' by scanning to the end of the buffer."
   (setq total-lines (line-number-at-pos (point-max) t)))
 
-(defun total-lines--in-empty-line (pos)
-  "Return t when the position POS is in an empty line, nil otherwise."
+(defun total-lines--count-newlines (beg end)
+  "Count the number of newlines between BEG and END.
+
+Kind of like `count-lines' but without the special cases."
+  (let ((change (count-lines beg end)))
+    (when (> change 0)
+      (setq change (1- change)))
+    (when (and (not (= beg end))
+               (total-lines--at-beginning-of-line end))
+      (setq change (1+ change)))
+    change))
+
+(defun total-lines--at-beginning-of-line (pos)
+  "Return t when the position POS is at beginning of line, nil otherwise."
   (save-excursion
     (goto-char pos)
     (beginning-of-line)
@@ -54,20 +66,13 @@
   "Decrement `total-lines' in response to a text deletion.
 
 BEG, END come from `after-change-functions'"
-  (unless (= beg end)
-    (let ((deleted-lines (1- (count-lines beg end))))
-      (when (total-lines--in-empty-line end)
-        (setq deleted-lines (1+ deleted-lines)))
-      (setq total-lines (- total-lines deleted-lines)))))
+  (setq total-lines (- total-lines (total-lines--count-newlines beg end))))
 
-(defun total-lines-after-change-function (beg end old-length)
+(defun total-lines-after-change-function (beg end _old-length)
   "Increment `total-lines-count' in response to a text addition.
 
 BEG and END, and OLD-LENGTH come from `before-change-functions'"
-  (let ((added-lines (1- (count-lines beg end))))
-    (when (total-lines--in-empty-line end)
-      (setq added-lines (1+ added-lines)))
-    (setq total-lines (+ total-lines added-lines))))
+  (setq total-lines (+ total-lines (total-lines--count-newlines beg end))))
 
 ;;;###autoload
 (define-minor-mode total-lines-mode
