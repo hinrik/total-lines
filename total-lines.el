@@ -41,7 +41,9 @@
 
 (defun total-lines-init ()
   "Reset `total-lines' by scanning to the end of the buffer."
-  (setq total-lines (line-number-at-pos (point-max) t)))
+  (save-restriction
+    (widen)
+    (setq total-lines (line-number-at-pos (point-max)))))
 
 (defun total-lines--count-newlines (beg end)
   "Count the number of newlines between BEG and END.
