@@ -41,9 +41,11 @@
 
 (defun total-lines-init ()
   "Reset `total-lines' by scanning to the end of the buffer."
-  (save-restriction
-    (widen)
-    (setq total-lines (line-number-at-pos (point-max)))))
+  (setq total-lines (if (version< emacs-version "26.1")
+                        (save-restriction
+                          (widen)
+                          (line-number-at-pos (point-max)))
+                      (line-number-at-pos (point-max) t))))
 
 (defun total-lines--count-newlines (beg end)
   "Count the number of newlines between BEG and END.
