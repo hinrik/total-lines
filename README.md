@@ -41,7 +41,17 @@ When enabled, the mode counts all current lines in the buffer and adds
 hooks to `before-change-functions` and `after-change-functions` to count
 any lines that are subsequently added or removed.
 
-Performance is very good since it is proportional to the sizes of edits.
+Performance is very good since it is proportional to the sizes of
+edits.
+
+## Caveats
+
+This mode only keeps track lines in the actual buffer text, which
+might differ from the *displayed text* when overlays are used (e.g. in
+a Magit buffer).
+
+Emacs offers no hooks around changes to overlays, so newlines
+introduced by them cannot be reflected in the `total-lines` variable.
 
 ## Support
 
