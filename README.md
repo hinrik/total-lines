@@ -46,7 +46,7 @@ edits.
 
 ## Caveats
 
-This mode only keeps track lines in the actual buffer text, which
+This mode only keeps of track lines in the actual buffer text, which
 might differ from the *displayed text* when overlays are used (e.g. in
 a Magit buffer).
 
